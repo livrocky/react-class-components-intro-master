@@ -6,6 +6,7 @@ const DUMMY_USERS = [
   { id: 'u1', name: 'James' },
   { id: 'u2', name: 'Mike' },
   { id: 'u3', name: 'Jane' },
+  { id: 'u4', name: 'Mitch' },
 ];
 
 function UserFinder() {
