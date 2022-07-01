@@ -1,5 +1,5 @@
 import css from './UserFinder.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Component } from 'react';
 import Users from './Users';
 
 const DUMMY_USERS = [
@@ -9,13 +9,57 @@ const DUMMY_USERS = [
   { id: 'u4', name: 'Mitch' },
 ];
 
-function UserFinder() {
-  const [filteredUsers, setFilteredUsers] = useState(DUMMY_USERS);
+class UserFinder extends Component {
+  constructor(props) {
+    // console.log('UserFinder constructor');
+    super(props);
+    this.state = {
+      filteredUsers: [],
+      searchTerm: '',
+      user: {
+        name: {
+          last: 'smith',
+        },
+      },
+    };
+  }
+  // componentDidMount == useEffect(() => {}, []);
+  componentDidMount() {
+    // console.log('UserFinder mounted');
+    this.setState({ filteredUsers: DUMMY_USERS });
+  }
+
+  searchChangeHandler(e) {
+    this.setState({ searchTerm: e.target.value });
+  }
+
+  render() {
+    return (
+      <>
+        <div className={css.finder}>
+          <input
+            type='search'
+            value={this.state.searchTerm}
+            onChange={this.searchChangeHandler.bind(this)}
+          />
+        </div>
+        <Users users={this.state.filteredUsers} />
+      </>
+    );
+  }
+}
+
+function UserFinder1() {
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   const searchChangeHandler = (e) => {
     setSearchTerm(e.target.value);
   };
+  // componentDidMount()
+  useEffect(() => {
+    setFilteredUsers(DUMMY_USERS);
+  }, []);
 
   // componentWillUpdate - class based
   useEffect(() => {
