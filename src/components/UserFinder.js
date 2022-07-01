@@ -11,7 +11,7 @@ const DUMMY_USERS = [
 
 class UserFinder extends Component {
   constructor(props) {
-    // console.log('UserFinder constructor');
+    console.log('UserFinder constructor');
     super(props);
     this.state = {
       filteredUsers: [],
@@ -25,8 +25,13 @@ class UserFinder extends Component {
   }
   // componentDidMount == useEffect(() => {}, []);
   componentDidMount() {
-    // console.log('UserFinder mounted');
+    console.log('UserFinder mounted');
     this.setState({ filteredUsers: DUMMY_USERS });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('UserFinder componentDidUpdate');
+    console.log('prevProps, prevState ===', prevProps, prevState);
   }
 
   searchChangeHandler(e) {
@@ -34,6 +39,7 @@ class UserFinder extends Component {
   }
 
   render() {
+    // console.log('UserFinder render constructor');
     return (
       <>
         <div className={css.finder}>
@@ -61,7 +67,7 @@ function UserFinder1() {
     setFilteredUsers(DUMMY_USERS);
   }, []);
 
-  // componentWillUpdate - class based
+  // componentDidUpdate- class based
   useEffect(() => {
     console.log('searchTerm updated', searchTerm);
     const filteredArr = DUMMY_USERS.filter((userObj) => userObj.name.includes(searchTerm));
