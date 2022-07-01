@@ -11,7 +11,7 @@ const DUMMY_USERS = [
 
 class UserFinder extends Component {
   constructor(props) {
-    console.log('UserFinder constructor');
+    // console.log('UserFinder constructor');
     super(props);
     this.state = {
       filteredUsers: [],
@@ -25,13 +25,21 @@ class UserFinder extends Component {
   }
   // componentDidMount == useEffect(() => {}, []);
   componentDidMount() {
-    console.log('UserFinder mounted');
+    // console.log('UserFinder mounted');
     this.setState({ filteredUsers: DUMMY_USERS });
   }
 
   componentDidUpdate(prevProps, prevState) {
     console.log('UserFinder componentDidUpdate');
-    console.log('prevProps, prevState ===', prevProps, prevState);
+    if (prevState.searchTerm !== this.state.searchTerm) {
+      // reikskia pasikeitimas ivyko searchTerm ir mes atnaujinam state
+      const filteredArr = DUMMY_USERS.filter((userObj) =>
+        userObj.name.includes(this.state.searchTerm)
+      );
+      this.setState({ filteredUsers: filteredArr });
+    } else {
+      console.log('state.searchTerm is the same');
+    }
   }
 
   searchChangeHandler(e) {
