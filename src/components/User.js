@@ -3,7 +3,7 @@ import classes from './User.module.css';
 
 class User extends Component {
   render() {
-    return <l1 className={classes.user}>{this.props.name}</l1>;
+    return <li className={classes.user}>{this.props.name}</li>;
   }
 }
 
